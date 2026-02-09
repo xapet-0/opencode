@@ -1009,6 +1009,34 @@ export namespace Config {
       logLevel: Log.Level.optional().describe("Log level"),
       tui: TUI.optional().describe("TUI specific settings"),
       server: Server.optional().describe("Server configuration for opencode serve and web commands"),
+      browser: z
+        .object({
+          url: z.string().optional().describe("Remote debugging URL for browser connection"),
+          ws: z.string().optional().describe("WebSocket endpoint for browser connection"),
+          access_token: z.string().optional().describe("Access token for browser connection"),
+          auth_header: z.string().optional().describe("Header name for browser access token"),
+          headers: z.record(z.string(), z.string()).optional().describe("Additional headers for browser connection"),
+          cookies: z
+            .array(
+              z
+                .object({
+                  name: z.string(),
+                  value: z.string(),
+                  domain: z.string().optional(),
+                  path: z.string().optional(),
+                  url: z.string().optional(),
+                  expires: z.number().optional(),
+                  httpOnly: z.boolean().optional(),
+                  secure: z.boolean().optional(),
+                  sameSite: z.enum(["Strict", "Lax", "None"]).optional(),
+                })
+                .strict(),
+            )
+            .optional()
+            .describe("Cookies to set after connecting to the browser"),
+          cookies_file: z.string().optional().describe("Path to a JSON file with cookies"),
+        })
+        .optional(),
       command: z
         .record(z.string(), Command)
         .optional()
