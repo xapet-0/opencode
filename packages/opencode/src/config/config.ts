@@ -1009,6 +1009,12 @@ export namespace Config {
       logLevel: Log.Level.optional().describe("Log level"),
       tui: TUI.optional().describe("TUI specific settings"),
       server: Server.optional().describe("Server configuration for opencode serve and web commands"),
+      browser: z
+        .object({
+          url: z.string().optional().describe("Remote debugging URL for browser connection"),
+          access_token: z.string().optional().describe("Access token for browser connection"),
+        })
+        .optional(),
       command: z
         .record(z.string(), Command)
         .optional()
