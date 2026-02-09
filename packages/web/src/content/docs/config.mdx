@@ -208,6 +208,35 @@ Available options:
 
 ---
 
+### Browser
+
+You can configure a remote browser connection for tools that rely on a running browser instance.
+
+```json title="opencode.json"
+{
+  "browser": {
+    "url": "http://127.0.0.1:9222",
+    "access_token": "YOUR_TOKEN"
+  }
+}
+```
+
+Optional fields:
+
+- `ws` - WebSocket endpoint for the browser (used instead of `url` when provided).
+- `auth_header` - Custom header name for the access token (defaults to `Authorization`).
+- `headers` - Additional headers to send when connecting to the browser.
+- `cookies` - Array of cookies to set after connecting.
+- `cookies_file` - Path to a JSON file containing cookies to set after connecting.
+
+You can normalize browser cookie exports with:
+
+```bash
+opencode browser cookies <input.json> [output.json]
+```
+
+---
+
 ### Tools
 
 You can manage the tools an LLM can use through the `tools` option.
